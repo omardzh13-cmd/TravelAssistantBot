@@ -1,1 +1,9 @@
-TOKEN = "8910996856:AAHCXyp1Hp_mqX0XWHvHYAHTE1-smOos9ew"
+
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+TOKEN = os.getenv("TOKEN")
+DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")

@@ -1,3 +1,32 @@
 {
-    "users": []
+    "history": [
+        {
+            "user_id": 6260787738,
+            "city": "Bishkek",
+            "temperature": 29.4
+        },
+        {
+            "user_id": 6260787738,
+            "city": "Tokyo",
+            "temperature": 26.5
+        },
+        {
+            "user_id": 6260787738,
+            "city": "Bishkek",
+            "temperature": 29.4
+        },
+        {
+            "user_id": 6260787738,
+            "city": "Bishkek",
+            "temperature": 28.9
+        },
+        {
+            "user_id": 6260787738,
+            "city": "Bishkek",
+            "temperature": 28.9
+        }
+    ],
+    "6260787738": {
+        "favorite_city": "Бишкек"
+    }
 }

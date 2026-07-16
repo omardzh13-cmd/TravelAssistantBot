@@ -1,45 +1,78 @@
 import json
 
 
-
-def load_data():
-
-    with open("db.json", "r", encoding="utf-8") as file:
-        return json.load(file)
+FILE = "db.json"
 
 
+def save_history(user_id, city, temperature):
 
-def save_data(data):
-
-    with open("db.json", "w", encoding="utf-8") as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
-
+    with open(FILE, "r", encoding="utf-8") as file:
+        data = json.load(file)
 
 
-def add_history(user_id, city, temperature):
-    data = load_data()
-    user_id = str(user_id)
-
-
-    if user_id not in data["users"]:
-        data["users"][user_id] = {
-            "history": []
-        }
-
-
-    data["users"][user_id]["history"].append({
+    data["history"].append({
+        "user_id": user_id,
         "city": city,
         "temperature": temperature
     })
 
-    save_data(data)
+
+    with open(FILE, "w", encoding="utf-8") as file:
+        json.dump(
+            data,
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
 
 
-def get_history(user_id):
+def get_history():
 
-    data = load_data()
-    user_id = str(user_id)
-    if user_id in data["users"]:
-        return data["users"][user_id]["history"]
+    with open(FILE, "r", encoding="utf-8") as file:
+        data = json.load(file)
 
-    return []
+    return data["history"]
+
+
+def clear_history():
+
+    with open(FILE, "w", encoding="utf-8") as file:
+        json.dump(
+            {"history": []},
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
+
+def save_favorite(user_id, city):
+
+    with open(FILE, "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+
+    data[str(user_id)] = {
+        "favorite_city": city
+    }
+
+
+    with open(FILE, "w", encoding="utf-8") as file:
+        json.dump(
+            data,
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
+
+
+def get_favorite(user_id):
+
+    with open(FILE, "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+
+    user = data.get(str(user_id))
+
+    if user:
+        return user["favorite_city"]
+
+    return None
