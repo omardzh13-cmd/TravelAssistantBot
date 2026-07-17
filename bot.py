@@ -292,6 +292,21 @@ def favorite_button(message):
         message.chat.id,
         f"⭐ Ваш любимый город: {city}"
     )
+
+
+
+
+
+@bot.message_handler(commands=["clear"])
+def clear_history_command(message):
+
+    clear_history()
+
+    bot.send_message(
+        message.chat.id,
+        "🗑 История очищена."
+    )
+
 print("Бот запущен!")
 
 bot.infinity_polling()
