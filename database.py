@@ -4,11 +4,27 @@ import json
 FILE = "db.json"
 
 
+def load_data():
+    with open(FILE, "r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+def save_data(data):
+    with open(FILE, "w", encoding="utf-8") as file:
+        json.dump(
+            data,
+            file,
+            indent=4,
+            ensure_ascii=False
+        )
+
+
 def save_history(user_id, city, temperature):
 
-    with open(FILE, "r", encoding="utf-8") as file:
-        data = json.load(file)
+    data = load_data()
 
+    if "history" not in data:
+        data["history"] = []
 
     data["history"].append({
         "user_id": user_id,
@@ -16,63 +32,53 @@ def save_history(user_id, city, temperature):
         "temperature": temperature
     })
 
-
-    with open(FILE, "w", encoding="utf-8") as file:
-        json.dump(
-            data,
-            file,
-            indent=4,
-            ensure_ascii=False
-        )
+    save_data(data)
 
 
 def get_history():
 
-    with open(FILE, "r", encoding="utf-8") as file:
-        data = json.load(file)
+    data = load_data()
 
-    return data["history"]
+    return data.get("history", [])
 
 
 def clear_history():
 
-    with open(FILE, "w", encoding="utf-8") as file:
-        json.dump(
-            {"history": []},
-            file,
-            indent=4,
-            ensure_ascii=False
-        )
+    data = load_data()
+
+    data["history"] = []
+
+    save_data(data)
+
+
 
 def save_favorite(user_id, city):
 
-    with open(FILE, "r", encoding="utf-8") as file:
-        data = json.load(file)
-
+    data = load_data()
 
     data[str(user_id)] = {
         "favorite_city": city
     }
 
+    save_data(data)
 
-    with open(FILE, "w", encoding="utf-8") as file:
-        json.dump(
-            data,
-            file,
-            indent=4,
-            ensure_ascii=False
-        )
 
 
 def get_favorite(user_id):
 
-    with open(FILE, "r", encoding="utf-8") as file:
-        data = json.load(file)
-
+    data = load_data()
 
     user = data.get(str(user_id))
 
     if user:
-        return user["favorite_city"]
+        return user.get("favorite_city")
 
     return None
+
+
+
+def get_stats():
+
+    data = load_data()
+
+    return len(data.get("history", []))

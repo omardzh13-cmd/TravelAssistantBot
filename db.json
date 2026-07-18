@@ -1,3 +1,12 @@
 {
-    "history": []
+    "history": [
+        {
+            "user_id": 6260787738,
+            "city": "Bishkek",
+            "temperature": 41.2
+        }
+    ],
+    "6260787738": {
+        "favorite_city": "Bishkek"
+    }
 }
